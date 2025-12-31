@@ -8,6 +8,24 @@
 *   **Antigravity IDE**: Ensure you are running the latest version of Antigravity.
 *   **Agentic Mode**: Enable Agentic Mode to allow the agent to read workflows and execute commands.
 
+### WSL Support
+If you are running Antigravity IDE on **WSL (Windows Subsystem for Linux)**:
+*   **File System**: It is strongly recommended to store your project files within the WSL file system (e.g., `~/projects/`) rather than the Windows mounted file system (`/mnt/c/`). This ensures optimal performance and prevents file permission issues.
+*   **Pathing**: Note that the agent will perceive paths in Linux format (e.g., `/home/user/project`).
+*   **Command Execution**: Run `apm-init` first! It will automatically detect your environment (WSL vs Windows) and configure the agent's context. If you need to force a specific context, you can manually edit `.antigravity/env.info`.
+
+#### WSL Command Examples
+When the agent operates in WSL mode (from Windows), it will wrap commands using `wsl`:
+
+| Action | Windows (PowerShell) | WSL (Linux) |
+| :--- | :--- | :--- |
+| **List Files** | `dir` or `ls` | `wsl bash -c "ls -la"` |
+| **Check Node** | `node -v` | `wsl bash -c "node -v"` |
+| **Run Script** | `.\run.ps1` | `wsl bash -c "./run.sh"` |
+| **Path** | `D:\Project` | `/mnt/d/Project` |
+
+> **Note**: If you launched the Agent directly *inside* a WSL terminal, it will run native Linux commands (e.g., `ls -la`) without the `wsl` prefix.
+
 ### Step 1: Install Workflows
 Ensure the following files are present in your `.agent/workflows/` directory:
 *   `apm-init.md`
