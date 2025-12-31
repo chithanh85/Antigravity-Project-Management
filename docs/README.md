@@ -16,6 +16,8 @@ Ensure the following files are present in your `.agent/workflows/` directory:
 *   `apm-build.md`
 *   `apm-orchestrator.md`
 *   `apm-flow.md`
+*   `apm-brownfield.md`
+*   `apm-epic-sync.md`
 
 ### Step 2: Initialize
 Run the initialization command to set up the storage structure:
@@ -98,7 +100,24 @@ APM gets smarter over time. It features a closed-loop learning system:
 
 ---
 
-## ⚡ Auto-Pilot (`apm-flow`)
+---
+ 
+ ## 🏚️ Brownfield Onboarding (`apm-brownfield`)
+ 
+ For existing or legacy projects, use the **Brownfield Workflow**.
+ 
+ *   **Use Case**: Onboarding an existing codebase into APM.
+ *   **Goal**: Generate AI-optimized documentation and initialize APM structure.
+ *   **Command**: `Run apm-brownfield`
+ *   **Process**:
+     1.  Scans the codebase.
+     2.  Generates `docs/index.md` (Master Entry Point).
+     3.  Shards large documentation files.
+     4.  Integrates with `apm-init`.
+ 
+ ---
+ 
+ ## ⚡ Auto-Pilot (`apm-flow`)
 
 Want to go from Idea to Code in one shot? Use the Auto-Pilot.
 
