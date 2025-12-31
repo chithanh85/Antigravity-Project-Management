@@ -12,7 +12,9 @@ This file acts as the project's long-term memory. It stores lessons learned, ant
 *   [Tests] Always verify changes with `npm test` or by running the code before marking a task complete.
 
 ## ⚠️ Technical Constraints
-*   [Env] We are running in a Windows environment (PowerShell). Avoid Unix-specific commands like `ls` (use `dir`) or `touch` (use `New-Item`).
+*   [Env] We are running in a Windows environment (PowerShell 5.1).
+    *   **Command Chaining**: Use `;` to run multiple commands (e.g., `cmd1 ; cmd2`). Do NOT use `&&`.
+    *   **WSL**: Use `wsl bash -c "command"` for complex Linux operations.
 *   [Node] Ensure compatibility with the project's Node version.
 
 ---
