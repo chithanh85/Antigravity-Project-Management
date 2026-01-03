@@ -87,18 +87,24 @@ When you `git commit`, the system will **automatically** run:
 ### ✅ Node.js/TypeScript Projects (EN)
 
 - `npm run lint` or `npm run lint-all`
+- `npm run lint:security` (Security-focused static analysis)
+- `npm run audit:check` (Dependency vulnerability scan)
 - `npm run format:check` (if available)
 - `npm test` (if available)
 
 ### ✅ Python Projects (EN)
 
 - `pylint` on staged `.py` files
+- `bandit` (Security static analysis)
+- `safety check` & `pip-audit` (Dependency vulnerability scan)
 - `black --check` (if installed)
 - `pytest` (if installed)
 
 ### ✅ Go Projects (EN)
 
 - `golangci-lint run ./...`
+- `gosec` (Security-focused linting)
+- `govulncheck` (Vulnerability scanning)
 - `gofmt` check
 - `go test ./...`
 
@@ -145,6 +151,11 @@ npm run apm-init
 
 # Lint markdown files
 npm run lint
+
+# Security audit & fixes
+npm run audit:check
+npm run audit:fix
+npm run lint:security
 ```
 
 ## 🔍 Troubleshooting (EN)

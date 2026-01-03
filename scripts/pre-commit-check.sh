@@ -44,15 +44,38 @@ if [ -f "package.json" ]; then
   fi
 
   # Run lint if script exists
-  if grep -q '"lint"' package.json || grep -q '"lint-all"' package.json; then
-    echo "  🔧 Running lint checks..."
-    $PKG_MGR run lint-all 2>/dev/null || $PKG_MGR run lint || exit 1
+  if grep -q '"lint-all":' package.json; then
+    echo "  🔧 Running lint-all..."
+    $PKG_MGR run lint-all || exit 1
+  elif grep -q '"lint":' package.json; then
+    echo "  🔧 Running lint..."
+    $PKG_MGR run lint || exit 1
   fi
   
   # Run tests if script exists (skip if CI-only)
   if grep -q '"test"' package.json && ! grep -q '"test".*"echo' package.json; then
     echo "  🧪 Running tests..."
     $PKG_MGR test || exit 1
+  fi
+
+  # Security audit & auto-fix
+  echo "  🔒 Running Node.js security audit & auto-fix..."
+  $PKG_MGR audit fix --audit-level=moderate || $PKG_MGR audit --audit-level=moderate || true
+  # Stage changes from audit fix (package.json, lock file)
+  git add package.json *-lock.json 2>/dev/null || true
+
+  # Snyk check (if installed)
+  if command -v snyk &> /dev/null; then
+    echo "  🔒 Running Snyk security scan..."
+    snyk test || echo "  ⚠️ Snyk scan failed (maybe missing API token), continuing..."
+  fi
+
+  # Security linting
+  if grep -q '"lint:security"' package.json; then
+    echo "  🔒 Running security linting..."
+    $PKG_MGR run lint:security || exit 1
+    # Stage changes from eslint fix
+    git add -u
   fi
 fi
 
@@ -88,6 +111,23 @@ if [ -f "requirements.txt" ] || [ -f "pyproject.toml" ] || [ -f "setup.py" ]; th
       echo "  🧪 Running pytest..."
       pytest || exit 1
     fi
+
+    # Security checks
+    echo "  🔒 Running Python security checks..."
+    if command -v bandit &> /dev/null; then
+      bandit -r . -x ./node_modules,./.agent,./.antigravity || exit 1
+    fi
+
+    if [ -f "requirements.txt" ]; then
+      if command -v safety &> /dev/null; then
+        safety check || echo "  ⚠️ Safety check failed, continuing..."
+      fi
+      if command -v pip-audit &> /dev/null; then
+        echo "  🔒 Running pip-audit & auto-fix..."
+        pip-audit --fix || pip-audit || exit 1
+        re_stage_files "requirements.txt"
+      fi
+    fi
   fi
 fi
 
@@ -112,6 +152,15 @@ if [ -f "go.mod" ]; then
     # Run tests
     echo "  🧪 Running go test..."
     go test ./... || exit 1
+
+    # Security checks
+    echo "  🔒 Running Go security checks..."
+    if command -v gosec &> /dev/null; then
+      gosec ./... || exit 1
+    fi
+    if command -v govulncheck &> /dev/null; then
+      govulncheck ./... || exit 1
+    fi
   fi
 fi
 

@@ -9,9 +9,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "markdownlint --config .markdownlint.json --ignore \"node_modules\" --ignore \".agent\" --ignore \".antigravity\" .",
+    "lint-all": "npm run lint",
     "prepare": "husky",
     "detect-env": "bash scripts/detect-env.sh",
-    "apm-init": "bash scripts/detect-env.sh && bash scripts/init-apm.sh"
+    "apm-init": "bash scripts/detect-env.sh && bash scripts/init-apm.sh",
+    "audit:check": "pnpm audit --audit-level=moderate",
+    "audit:fix": "pnpm audit fix",
+    "lint:security": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -26,6 +30,8 @@
   },
   "homepage": "https://github.com/chithanh85/Antigravity-Project-Management#readme",
   "devDependencies": {
+    "eslint": "^9.39.2",
+    "eslint-plugin-security": "^3.0.1",
     "husky": "^9.1.7",
     "markdownlint-cli": "^0.47.0"
   }
