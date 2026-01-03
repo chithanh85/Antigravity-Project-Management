@@ -1,10 +1,23 @@
-# Antigravity PM - Hướng Dẫn Sử Dụng
+# Antigravity PM - Hệ Sinh Thái Quản Lý Dự Án Tự Động
+
+**Antigravity Project Management (APM)** là một phương pháp luận quản lý dự án hiện đại, kết hợp giữa tư duy hệ thống và tự động hóa mạnh mẽ. APM giúp các đội ngũ phát triển chuyển hóa những ý tưởng sơ khai thành sản phẩm thực tế thông qua một quy trình khoa học, tinh gọn và minh bạch.
 
 # English Below
 
-**Antigravity Project Management (APM)** là một workspace template với pre-commit hooks đa ngôn ngữ và quy trình quản lý dự án tự động.
+**Chào mừng bạn đến với quy trình làm việc Antigravity Project Management Workflow.** 
 
-## 🚀 Cài Đặt Nhanh
+## 🌊 Flow Làm Việc (Workflow)
+
+APM vận hành dựa trên chuỗi giá trị 3 giai đoạn cốt lõi, đảm bảo mọi dòng mã đều có mục đích rõ ràng:
+
+1.  **Phân Tích (Analysis) `/apm-brief`**: Đào sâu yêu cầu, nghiên cứu tài liệu và xác định "Tại sao" chúng ta xây dựng tính năng này.
+2.  **Lập Kế Hoạch (Planning) `/apm-spec`**: Thiết kế kiến trúc tổng thể, đặc tả kỹ thuật và xác định "Làm thế nào" để triển khai tối ưu nhất.
+3.  **Thực Thi (Execution) `/apm-build`**: Chia nhỏ Spec thành các Task nhỏ gọn, thực thi mã nguồn và kiểm soát chất lượng tự động.
+4.  **Chế Độ Tự Động (Auto-Pilot) `/apm-flow`**: Tự động hóa toàn bộ hành trình từ Idea đến Code chỉ với một lệnh duy nhất.
+
+---
+
+## � Cài Đặt Nhanh
 
 ### 1. Clone hoặc Copy Template
 
@@ -29,163 +42,26 @@ Lệnh này sẽ:
 
 - Tự động phát hiện môi trường (Windows/WSL/Linux/macOS)
 - Tạo cấu trúc thư mục `.antigravity/`
-- Thiết lập git hooks
-
-## 📁 Cấu Trúc Thư Mục
-
-```text
-.antigravity/
-├── 0-analysis/         # Product Briefs & Research
-├── 1-planning/         # Technical Specifications
-└── 2-execution/        # Epics & Tasks
-
-.agent/workflows/       # APM workflows (đừng sửa)
-scripts/                # Utility scripts
-docs/                   # Documentation
-```
-
-## 🔧 Pre-commit Hooks (Tự Động)
-
-Khi bạn `git commit`, hệ thống sẽ **tự động** chạy:
-
-### ✅ Markdown Projects
-
-- `markdownlint` trên các file `.md` đã staged
-
-### ✅ Node.js/TypeScript Projects
-
-- `npm run lint` hoặc `npm run lint-all`
-- `npm run format:check` (nếu có)
-- `npm test` (nếu có)
-
-### ✅ Python Projects
-
-- `pylint` trên các file `.py` đã staged
-- `black --check` (nếu có cài)
-- `pytest` (nếu có cài)
-
-### ✅ Go Projects
-
-- `golangci-lint run ./...`
-- `gofmt` check
-- `go test ./...`
-
-**Lưu ý**: Chỉ chạy checks cho ngôn ngữ có trong project của bạn!
-
-## 📝 Quy Trình APM (Tùy Chọn)
-
-### Phase 1: Analysis (VN)
-
-```bash
-# Tạo Product Brief
-# Chạy workflow: /apm-brief
-```
-
-### Phase 2: Planning (VN)
-
-```bash
-# Tạo Technical Spec
-# Chạy workflow: /apm-spec
-```
-
-### Phase 3: Execution (VN)
-
-```bash
-# Tạo Tasks
-# Chạy workflow: /apm-build
-```
-
-### Auto-Pilot (All-in-One) (VN)
-
-```bash
-# Chạy toàn bộ pipeline
-# Chạy workflow: /apm-flow
-```
-
-## 🛠️ Scripts Hữu Ích
-
-```bash
-# Phát hiện môi trường
-npm run detect-env
-
-# Khởi tạo APM structure
-npm run apm-init
-
-# Lint markdown files
-npm run lint
-```
-
-## 🔍 Troubleshooting (VN)
-
-### Pre-commit hook bị lỗi? (VN)
-
-```bash
-# Kiểm tra script có executable không
-chmod +x scripts/pre-commit-check.sh
-
-# Test thủ công
-bash scripts/pre-commit-check.sh
-```
-
-### Muốn skip pre-commit hook? (VN)
-
-```bash
-git commit --no-verify -m "message"
-```
-
-### Muốn tắt một số checks? (VN)
-
-Sửa file `scripts/pre-commit-check.sh` và comment out phần không cần.
-
-## 📚 Tài Liệu Chi Tiết
-
-- [APM Methodology](docs/README.md) - Quy trình chi tiết
-- [Knowledge Base](docs/knowledge.md) - Best practices & lessons learned
-- [Workflows](.agent/workflows/) - Các workflow có sẵn
-
-## 🤝 Đóng Góp
-
-Template này được tối ưu cho:
-
-- ✅ Cross-platform (Windows, WSL, Linux, macOS)
-- ✅ Multi-language (Node.js, Python, Go)
-- ✅ Minimal dependencies (chỉ 2 npm packages)
-- ✅ Fast setup (< 10 giây)
-
-Nếu bạn muốn thêm ngôn ngữ khác (Rust, Java, etc.), sửa file `scripts/pre-commit-check.sh`.
+- Thiết lập hệ thống Git Hooks thông minh
 
 ---
 
-# Antigravity PM - User Guide
+# Antigravity PM - Automated Project Management Ecosystem
 
-**Antigravity Project Management (APM)** is a workspace template with multi-language pre-commit hooks and automated project management workflows.
+**Antigravity Project Management (APM)** is a modern project management methodology that bridges the gap between systemic thinking and high-performance automation. APM empowers development teams to transform raw ideas into production-ready products through a scientific, lean, and transparent workflow.
 
-## 🚀 Quick Setup
+**Welcome to the Antigravity Project Management Workflow.**
 
-### 1. Clone or Copy Template
+## 🌊 Core Workflow
 
-```bash
-git clone <repo-url>
-cd antigravity-pm
-```
+APM operates on a 3-phase value chain, ensuring every line of code serves a clear purpose:
 
-### 2. Install Dependencies
+1.  **Phase 1: Analysis `/apm-brief`**: Deep-dive into requirements, research documentation, and define the "Why" behind every feature.
+2.  **Phase 2: Planning `/apm-spec`**: Design overall architecture, technical specifications, and define "How" to implement optimally.
+3.  **Phase 3: Execution `/apm-build`**: Decompose Specs into atomic Tasks, execute source code, and enforce automated quality control.
+4.  **Auto-Pilot Mode `/apm-flow`**: Automate the entire journey from Idea to Code with a single orchestrated command.
 
-```bash
-npm install
-```
-
-### 3. Initialize APM
-
-```bash
-npm run apm-init
-```
-
-This will:
-
-- Auto-detect environment (Windows/WSL/Linux/macOS)
-- Create `.antigravity/` directory structure
-- Set up git hooks
+---
 
 ## 📁 Directory Structure
 
