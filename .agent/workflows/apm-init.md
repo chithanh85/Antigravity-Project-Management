@@ -18,10 +18,9 @@ The system is organized into three sequential phases:
 1.  **Detect Environment**
     - Runs a check to identify if running on Windows or WSL.
     - Creates `.antigravity/env.info` with `EXECUTION_ENV=WSL` or `EXECUTION_ENV=WINDOWS`.
-    - // turbo
     - Command:
-        ```powershell
-        if ($IsLinux) { "EXECUTION_ENV=WSL" | Out-File -Encoding utf8 .antigravity/env.info } else { "EXECUTION_ENV=WINDOWS" | Out-File -Encoding utf8 .antigravity/env.info }
+        ```bash
+        bash scripts/detect-env.sh
         ```
 
 2.  **Create Directories**

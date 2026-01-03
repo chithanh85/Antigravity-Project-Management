@@ -1,0 +1,32 @@
+{
+  "name": "antigravity-pm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "markdownlint --config .markdownlint.json --ignore \"node_modules\" --ignore \".agent\" --ignore \".antigravity\" .",
+    "prepare": "husky",
+    "detect-env": "bash scripts/detect-env.sh",
+    "apm-init": "bash scripts/detect-env.sh && bash scripts/init-apm.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chithanh85/Antigravity-Project-Management.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chithanh85/Antigravity-Project-Management/issues"
+  },
+  "homepage": "https://github.com/chithanh85/Antigravity-Project-Management#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "markdownlint-cli": "^0.47.0"
+  }
+}
