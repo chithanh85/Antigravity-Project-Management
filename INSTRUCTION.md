@@ -1,19 +1,15 @@
-# Antigravity PM - Hệ Sinh Thái Quản Lý Dự Án Tự Động
+# Antigravity PM - Hệ Sinh Thái Quản Lý Dự Án Thông Minh & Bảo Mật
 
-**Antigravity Project Management (APM)** là một phương pháp luận quản lý dự án hiện đại, kết hợp giữa tư duy hệ thống và tự động hóa mạnh mẽ. APM giúp các đội ngũ phát triển chuyển hóa những ý tưởng sơ khai thành sản phẩm thực tế thông qua một quy trình khoa học, tinh gọn và minh bạch.
+**Antigravity Project Management (APM)** là một phương pháp luận quản lý dự án hiện đại, kết hợp giữa tư duy hệ thống và tự động hóa hiệu suất cao. APM giúp các đội ngũ phát triển chuyển hóa ý tưởng từ sơ khai thành sản phẩm thực tế thông qua một quy trình khoa học, tinh gọn, minh bạch và an toàn tuyệt đối.
 
-# English Below
+## 🌊 Luồng Công Việc Cốt Lõi (Core Workflow)
 
-**Chào mừng bạn đến với quy trình làm việc Antigravity Project Management Workflow.** 
-
-## 🌊 Flow Làm Việc (Workflow)
-
-APM vận hành dựa trên chuỗi giá trị 3 giai đoạn cốt lõi, đảm bảo mọi dòng mã đều có mục đích rõ ràng:
+APM vận hành dựa trên chuỗi giá trị 4 giai đoạn, đảm bảo mọi dòng mã đều có mục đích và được kiểm soát chất lượng tự động:
 
 1.  **Phân Tích (Analysis) `/apm-brief`**: Đào sâu yêu cầu, nghiên cứu tài liệu và xác định "Tại sao" chúng ta xây dựng tính năng này.
-2.  **Lập Kế Hoạch (Planning) `/apm-spec`**: Thiết kế kiến trúc tổng thể, đặc tả kỹ thuật và xác định "Làm thế nào" để triển khai tối ưu nhất.
-3.  **Thực Thi (Execution) `/apm-build`**: Chia nhỏ Spec thành các Task nhỏ gọn, thực thi mã nguồn và kiểm soát chất lượng tự động.
-4.  **Chế Độ Tự Động (Auto-Pilot) `/apm-flow`**: Tự động hóa toàn bộ hành trình từ Idea đến Code chỉ với một lệnh duy nhất.
+2.  **Lập Kế Hoạch (Planning) `/apm-spec`**: Thiết kế kiến trúc tổng thể, đặc tả kỹ thuật và xác định "Làm thế nào" để tối ưu hóa.
+3.  **Thực Thi (Execution) `/apm-build`**: Chia nhỏ Spec thành các Task nguyên tử, thực thi mã nguồn và kiểm soát chất lượng/bảo mật tự động.
+4.  **Chế Độ Tự Động (Auto-Pilot) `/apm-flow`**: Tự động hóa toàn bộ hành trình từ Ý tưởng đến Code chỉ với một lệnh duy nhất.
 
 ---
 
@@ -46,20 +42,68 @@ Lệnh này sẽ:
 
 ---
 
-# Antigravity PM - Automated Project Management Ecosystem
+## 🔧 Pre-commit Hooks (Tự động)
 
-**Antigravity Project Management (APM)** is a modern project management methodology that bridges the gap between systemic thinking and high-performance automation. APM empowers development teams to transform raw ideas into production-ready products through a scientific, lean, and transparent workflow.
+Khi bạn thực hiện `git commit`, hệ thống sẽ **tự động** chạy:
 
-**Welcome to the Antigravity Project Management Workflow.**
+### ✅ Dự án Markdown
+- `markdownlint` trên các file `.md` đang được stage.
+
+### ✅ Dự án Node.js/TypeScript
+- `npm run lint` hoặc `npm run lint-all`
+- `npm run lint:security` (Quét lỗi bảo mật tĩnh)
+- `npm run audit:check` (Quét lỗ hổng dependency)
+- `npm run format:check` (nếu có)
+- `npm test` (nếu có)
+
+### ✅ Dự án Python
+- `pylint` trên các file `.py` đang được stage.
+- `bandit` (Quét lỗi bảo mật tĩnh)
+- `safety check` & `pip-audit` (Quét lỗ hổng dependency)
+- `black --check` (nếu cài đặt)
+- `pytest` (nếu cài đặt)
+
+### ✅ Dự án Go
+- `golangci-lint run ./...`
+- `gosec` (Quét lỗi bảo mật tĩnh)
+- `govulncheck` (Quét lỗ hổng dependency)
+- `gofmt` check
+- `go test ./...`
+
+**Lưu ý**: Chỉ chạy các kiểm tra cho ngôn ngữ hiện có trong dự án của bạn!
+
+## 🛠️ Script Hữu Ích
+
+```bash
+# Phát hiện môi trường
+npm run detect-env
+
+# Khởi tạo cấu trúc APM
+npm run apm-init
+
+# Kiểm tra markdown
+npm run lint
+
+# Kiểm tra & Fix bảo mật
+npm run audit:check
+npm run audit:fix
+npm run lint:security
+```
+
+---
+
+# Antigravity PM - Intelligent & Secure Automated Project Management
+
+**Antigravity Project Management (APM)** is a modern project management methodology that bridges the gap between systemic thinking and high-performance automation. APM empowers development teams to transform raw ideas into production-ready products through a scientific, lean, transparent, and secure workflow.
 
 ## 🌊 Core Workflow
 
-APM operates on a 3-phase value chain, ensuring every line of code serves a clear purpose:
+APM operates on a 4-phase value chain, ensuring every line of code serves a clear purpose and undergoes automated quality/security control:
 
 1.  **Phase 1: Analysis `/apm-brief`**: Deep-dive into requirements, research documentation, and define the "Why" behind every feature.
 2.  **Phase 2: Planning `/apm-spec`**: Design overall architecture, technical specifications, and define "How" to implement optimally.
-3.  **Phase 3: Execution `/apm-build`**: Decompose Specs into atomic Tasks, execute source code, and enforce automated quality control.
-4.  **Auto-Pilot Mode `/apm-flow`**: Automate the entire journey from Idea to Code with a single orchestrated command.
+3.  **Phase 3: Execution `/apm-build`**: Decompose Specs into atomic Tasks, execute source code, and enforce automated quality/security control.
+4.  **Phase 4: Auto-Pilot `/apm-flow`**: Automate the entire journey from Idea to Code with a single orchestrated command.
 
 ---
 
