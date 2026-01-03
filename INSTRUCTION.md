@@ -2,6 +2,17 @@
 
 **Antigravity Project Management (APM)** là một phương pháp luận quản lý dự án hiện đại, kết hợp giữa tư duy hệ thống và tự động hóa hiệu suất cao. APM giúp các đội ngũ phát triển chuyển hóa ý tưởng từ sơ khai thành sản phẩm thực tế thông qua một quy trình khoa học, tinh gọn, minh bạch và an toàn tuyệt đối.
 
+## ⚡ Cài Đặt Nhanh (One-Click Setup)
+
+Để bắt đầu ngay lập tức với cấu trúc chuẩn:
+
+- **Windows**: Chạy file `setup.bat`
+- **Linux/macOS/WSL**: Chạy lệnh `bash setup.sh`
+
+Các script này sẽ tự động cài đặt dependencies và khởi tạo môi trường APM cho bạn.
+
+---
+
 ## 🌊 Luồng Công Việc Cốt Lõi (Core Workflow)
 
 APM vận hành dựa trên chuỗi giá trị 4 giai đoạn, đảm bảo mọi dòng mã đều có mục đích và được kiểm soát chất lượng tự động:
@@ -95,6 +106,17 @@ npm run lint:security
 # Antigravity PM - Intelligent & Secure Automated Project Management
 
 **Antigravity Project Management (APM)** is a modern project management methodology that bridges the gap between systemic thinking and high-performance automation. APM empowers development teams to transform raw ideas into production-ready products through a scientific, lean, transparent, and secure workflow.
+
+## ⚡ One-Click Setup
+
+To get started immediately with the standard structure:
+
+- **Windows**: Run `setup.bat`
+- **Linux/macOS/WSL**: Run `bash setup.sh`
+
+These scripts will automatically install dependencies and initialize the APM ecosystem for you.
+
+---
 
 ## 🌊 Core Workflow
 

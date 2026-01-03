@@ -15,7 +15,8 @@
     "apm-init": "bash scripts/detect-env.sh && bash scripts/init-apm.sh",
     "audit:check": "pnpm audit --audit-level=moderate",
     "audit:fix": "pnpm audit fix",
-    "lint:security": "eslint --fix ."
+    "lint:security": "eslint --fix .",
+    "setup": "npm install && npm run apm-init"
   },
   "repository": {
     "type": "git",
