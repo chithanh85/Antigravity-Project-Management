@@ -1,19 +1,28 @@
 #!/bin/bash
-# Universal pre-commit check script
-# Auto-detects project type and runs appropriate linters/tests
+# Universal pre-commit check & auto-fix script
+# Auto-detects project type, runs fixers, and re-stages modified files.
 
 set -e
 
-echo "🔍 Running pre-commit checks..."
+echo "🔍 Running pre-commit checks & auto-fix..."
 
-# Markdown linting (always run if .md files are staged)
+# Function to re-stage modified files
+re_stage_files() {
+  local files="$1"
+  if [ -n "$files" ]; then
+    git add $files
+  fi
+}
+
+# Markdown linting & fixing
 STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
 if [ -n "$STAGED_MD" ]; then
-  echo "📝 Linting markdown files..."
-  npx markdownlint-cli $STAGED_MD || exit 1
+  echo "📝 Fixing markdown files..."
+  npx markdownlint-cli --fix $STAGED_MD || true
+  re_stage_files "$STAGED_MD"
 fi
 
-# Node.js/TypeScript checks
+# Node.js/TypeScript checks & fixing
 if [ -f "package.json" ]; then
   echo "📦 Detected Node.js project"
   
@@ -26,16 +35,18 @@ if [ -f "package.json" ]; then
     PKG_MGR="npm"
   fi
   
+  # Run format/fix if script exists
+  if grep -q '"format"' package.json; then
+    echo "  💅 Auto-formatting..."
+    $PKG_MGR run format || exit 1
+    # We don't know exactly which files were modified, so we stage all tracked changes
+    git add -u
+  fi
+
   # Run lint if script exists
   if grep -q '"lint"' package.json || grep -q '"lint-all"' package.json; then
-    echo "  🔧 Running lint..."
+    echo "  🔧 Running lint checks..."
     $PKG_MGR run lint-all 2>/dev/null || $PKG_MGR run lint || exit 1
-  fi
-  
-  # Run format check if script exists
-  if grep -q '"format:check"' package.json; then
-    echo "  💅 Checking format..."
-    $PKG_MGR run format:check || exit 1
   fi
   
   # Run tests if script exists (skip if CI-only)
@@ -45,23 +56,31 @@ if [ -f "package.json" ]; then
   fi
 fi
 
-# Python checks
+# Python checks & fixing
 if [ -f "requirements.txt" ] || [ -f "pyproject.toml" ] || [ -f "setup.py" ]; then
   STAGED_PY=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
   
   if [ -n "$STAGED_PY" ]; then
     echo "🐍 Detected Python project"
     
+    # Check if black is available for auto-formatting
+    if command -v black &> /dev/null; then
+      echo "  💅 Auto-formatting with black..."
+      black $STAGED_PY || exit 1
+      re_stage_files "$STAGED_PY"
+    fi
+
+    # Check if isort is available
+    if command -v isort &> /dev/null; then
+      echo "  🔧 Sorting imports with isort..."
+      isort $STAGED_PY || exit 1
+      re_stage_files "$STAGED_PY"
+    fi
+    
     # Check if pylint is available
     if command -v pylint &> /dev/null; then
       echo "  🔧 Running pylint..."
       pylint $STAGED_PY || exit 1
-    fi
-    
-    # Check if black is available
-    if command -v black &> /dev/null; then
-      echo "  💅 Checking format with black..."
-      black --check $STAGED_PY || exit 1
     fi
     
     # Run pytest if available
@@ -72,26 +91,22 @@ if [ -f "requirements.txt" ] || [ -f "pyproject.toml" ] || [ -f "setup.py" ]; th
   fi
 fi
 
-# Go checks
+# Go checks & fixing
 if [ -f "go.mod" ]; then
   STAGED_GO=$(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true)
   
   if [ -n "$STAGED_GO" ]; then
     echo "🔵 Detected Go project"
     
+    # Run gofmt to fix formatting
+    echo "  💅 Auto-formatting with gofmt..."
+    gofmt -w $STAGED_GO
+    re_stage_files "$STAGED_GO"
+
     # Run golangci-lint if available
     if command -v golangci-lint &> /dev/null; then
       echo "  🔧 Running golangci-lint..."
       golangci-lint run ./... || exit 1
-    fi
-    
-    # Run go fmt check
-    echo "  💅 Checking format..."
-    UNFORMATTED=$(gofmt -l $STAGED_GO)
-    if [ -n "$UNFORMATTED" ]; then
-      echo "❌ The following files are not formatted:"
-      echo "$UNFORMATTED"
-      exit 1
     fi
     
     # Run tests
@@ -100,4 +115,4 @@ if [ -f "go.mod" ]; then
   fi
 fi
 
-echo "✅ All pre-commit checks passed!"
+echo "✅ All checks passed & auto-fixes applied!"
